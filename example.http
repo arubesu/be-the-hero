@@ -17,6 +17,15 @@ content-type: application/json
     "uf": "SP"
 }
 
+### PROFILE
+
+###
+GET http://localhost:3333/profile HTTP/1.1
+Authorization: 7a7a4faa
+  
+
+###INCIDENTS
+
 ###
 GET http://localhost:3333/incidents HTTP/1.1
   
@@ -35,4 +44,15 @@ content-type: application/json
 ###
 DELETE http://localhost:3333/incidents/2 HTTP/1.1
 Authorization: 7a7a4fa5
+
+##Session
+
+###
+POST http://localhost:3333/sessions HTTP/1.1
+content-type: application/json
+
+{
+    "id":"8487cce1"
+}
+
 
