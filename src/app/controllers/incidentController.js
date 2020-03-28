@@ -21,10 +21,17 @@ module.exports = {
     const [count] = await connection('incidents').count();
 
     const incidents = await connection('incidents')
+      .join('ngos', 'ngos.id', '=', 'incidents.ngo_id')
       .limit(pageSize)
       .offset((pageNumber - 1) * pageSize)
-      .select();
-
+      .select(
+        'incidents.*',
+        'ngos.name',
+        'ngos.email',
+        'ngos.whatsapp',
+        'ngos.city',
+        'ngos.uf'
+      );
 
     response.header('X-Total-Count', count['count(*)']);
 
