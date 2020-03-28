@@ -27,7 +27,7 @@ Authorization: 7a7a4faa
 ###INCIDENTS
 
 ###
-GET http://localhost:3333/incidents HTTP/1.1
+GET http://localhost:3333/incidents?pageNumber=1&pageSize=100 HTTP/1.1
   
 ###
 POST http://localhost:3333/incidents HTTP/1.1

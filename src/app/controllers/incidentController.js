@@ -16,7 +16,17 @@ module.exports = {
   },
 
   async index(request, response) {
-    const incidents = await connection('incidents').select();
+    const { pageNumber = 1, pageSize = 5 } = request.query;
+
+    const [count] = await connection('incidents').count();
+
+    const incidents = await connection('incidents')
+      .limit(pageSize)
+      .offset((pageNumber - 1) * pageSize)
+      .select();
+
+
+    response.header('X-Total-Count', count['count(*)']);
 
     return response.json(incidents);
   },
