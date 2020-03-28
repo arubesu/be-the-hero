@@ -1,0 +1,38 @@
+#ONGS 
+
+#Get all NGOs
+###
+GET http://localhost:3333/ngos HTTP/1.1
+
+#Store a NGO
+###
+POST http://localhost:3333/ngos HTTP/1.1
+content-type: application/json
+
+{
+    "name": "NGO Example4",
+    "email": "sample@email.com",
+    "whatsapp": "9999999999",
+    "city": "São Paulo",
+    "uf": "SP"
+}
+
+###
+GET http://localhost:3333/incidents HTTP/1.1
+  
+###
+POST http://localhost:3333/incidents HTTP/1.1
+Authorization: 7a7a4fa0
+content-type: application/json
+
+{
+    "title": "Incident Example",
+    "description": "sample description",
+    "value": 1000
+}
+
+
+###
+DELETE http://localhost:3333/incidents/2 HTTP/1.1
+Authorization: 7a7a4fa5
+
