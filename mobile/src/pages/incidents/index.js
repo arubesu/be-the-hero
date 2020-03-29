@@ -9,24 +9,39 @@ import api from '../../services/api';
 
 export default function Incidents() {
   const navigator = useNavigation();
+
   const [incidents, setIncidents] = useState([]);
   const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  function navigateToDetail() {
-    navigator.navigate('Detail');
+  function navigateToDetail(incident) {
+    navigator.navigate('Detail', { incident });
   }
 
   async function loadIncidents() {
-    api.get('incidents')
+
+    if (loading)
+      return;
+
+    if (total > 0 && incidents.length === total)
+      return;
+
+    api.get('incidents', {
+      params: { pageNumber: page }
+    })
       .then(response => {
-        setIncidents(response.data)
-        setTotal(response.headers['x-total-count'])
-      })
+        setLoading(true);
+        setIncidents([...incidents, ...response.data]);
+        setTotal(response.headers['x-total-count']);
+        setPage(page + 1);
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
     loadIncidents();
-  }, [])
+  }, [incidents])
 
   return (
     <View style={styles.container}>
@@ -43,6 +58,8 @@ export default function Incidents() {
         style={styles.incidentsList}
         keyExtractor={incident => String(incident.id)}
         showsVerticalScrollIndicator={false}
+        onEndReached={loadIncidents}
+        onEndReachedThreshold={0.2}
         renderItem={({ item: incident }) => (
 
           <View style={styles.incident}>
@@ -61,7 +78,7 @@ export default function Incidents() {
 
             <TouchableOpacity
               style={styles.detailsButton}
-              onPress={navigateToDetail}
+              onPress={() => navigateToDetail(incident)}
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
               <Feather name='arrow-right' size={16} color='#e02041' ></Feather>
