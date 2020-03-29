@@ -9,6 +9,6 @@ module.exports = {
       .where('ngo_id', ngo_id)
       .select();
 
-    return response.json({ incidents });
+    return response.json(incidents);
   }
 }
