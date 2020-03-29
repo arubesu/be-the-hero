@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
+import api from '../../services/api';
 
 export default function Incidents() {
-
   const navigator = useNavigation();
+  const [incidents, setIncidents] = useState([]);
 
   function navigateToDetail() {
     navigator.navigate('Detail');
   }
+
+  async function loadIncidents() {
+    api.get('incidents')
+      .then(response => setIncidents(response.data));
+  }
+
+  useEffect(() => {
+    loadIncidents();
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -25,21 +35,21 @@ export default function Incidents() {
       <Text style={styles.description}>Escolha um dos casos abaixo e salve o dia</Text>
 
       <FlatList
-        data={[1, 2]}
+        data={incidents}
         style={styles.incidentsList}
-        keyExtractor={incident => String(incident)}
+        keyExtractor={incident => String(incident.id)}
         showsVerticalScrollIndicator={false}
-        renderItem={() => (
+        renderItem={({ item: incident }) => (
 
           <View style={styles.incident}>
             <Text style={styles.incidentProperty}>ONG:</Text>
-            <Text style={styles.incidentValue}>ONG NAME SAMPLE</Text>
+            <Text style={styles.incidentValue}>{incident.name}</Text>
 
             <Text style={styles.incidentProperty}>CASO:</Text>
-            <Text style={styles.incidentValue}>Sample Incident works</Text>
+            <Text style={styles.incidentValue}>{incident.description}</Text>
 
             <Text style={styles.incidentProperty}>VALOR:</Text>
-            <Text style={styles.incidentValue}>R$ 150,00</Text>
+            <Text style={styles.incidentValue}>{incident.value}</Text>
 
             <TouchableOpacity
               style={styles.detailsButton}

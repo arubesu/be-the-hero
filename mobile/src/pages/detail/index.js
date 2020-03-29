@@ -21,7 +21,6 @@ export default function Detail() {
       recipients: [email],
       body: message
     });
-
   }
 
   function sendWhatsApp() {
