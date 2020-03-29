@@ -1,10 +1,19 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Feather } from '@expo/vector-icons';
 
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 
 export default function Incidents() {
+
+  const navigator = useNavigation();
+
+  function navigateToDetail() {
+    navigator.navigate('Detail');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -13,7 +22,35 @@ export default function Incidents() {
       </View>
 
       <Text style={styles.title}>Bem vindo</Text>
-      <Text style={styles.description}>Escolha um dos casos abaixo e salvo o dia</Text>
+      <Text style={styles.description}>Escolha um dos casos abaixo e salve o dia</Text>
+
+      <FlatList
+        data={[1, 2]}
+        style={styles.incidentsList}
+        keyExtractor={incident => String(incident)}
+        showsVerticalScrollIndicator={false}
+        renderItem={() => (
+
+          <View style={styles.incident}>
+            <Text style={styles.incidentProperty}>ONG:</Text>
+            <Text style={styles.incidentValue}>ONG NAME SAMPLE</Text>
+
+            <Text style={styles.incidentProperty}>CASO:</Text>
+            <Text style={styles.incidentValue}>Sample Incident works</Text>
+
+            <Text style={styles.incidentProperty}>VALOR:</Text>
+            <Text style={styles.incidentValue}>R$ 150,00</Text>
+
+            <TouchableOpacity
+              style={styles.detailsButton}
+              onPress={navigateToDetail}
+            >
+              <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
+              <Feather name='arrow-right' size={16} color='#e02041' ></Feather>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
     </View>
   );
 }
