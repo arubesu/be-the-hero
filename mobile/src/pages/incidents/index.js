@@ -10,6 +10,7 @@ import api from '../../services/api';
 export default function Incidents() {
   const navigator = useNavigation();
   const [incidents, setIncidents] = useState([]);
+  const [total, setTotal] = useState(0);
 
   function navigateToDetail() {
     navigator.navigate('Detail');
@@ -17,7 +18,10 @@ export default function Incidents() {
 
   async function loadIncidents() {
     api.get('incidents')
-      .then(response => setIncidents(response.data));
+      .then(response => {
+        setIncidents(response.data)
+        setTotal(response.headers['x-total-count'])
+      })
   }
 
   useEffect(() => {
@@ -28,7 +32,7 @@ export default function Incidents() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg} />
-        <Text style={styles.headerText}>Total de <Text style={styles.headerTextBold}>0 casos</Text>.</Text>
+        <Text style={styles.headerText}>Total de <Text style={styles.headerTextBold}>{total} casos</Text>.</Text>
       </View>
 
       <Text style={styles.title}>Bem vindo</Text>
@@ -49,7 +53,11 @@ export default function Incidents() {
             <Text style={styles.incidentValue}>{incident.description}</Text>
 
             <Text style={styles.incidentProperty}>VALOR:</Text>
-            <Text style={styles.incidentValue}>{incident.value}</Text>
+            <Text style={styles.incidentValue}>{Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL'
+            }).format(incident.value)}
+            </Text>
 
             <TouchableOpacity
               style={styles.detailsButton}
