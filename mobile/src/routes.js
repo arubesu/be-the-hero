@@ -8,13 +8,16 @@ import Incidents from './pages/incidents';
 import Detail from './pages/detail';
 
 export default function Routes() {
-  <NavigationContainer>
 
-    <AppStack.Navigator screenOptions={{ headerShown: false }}>
-      <AppStack.Screen name="Incidents" component={Incidents} />
+  return (
+    <NavigationContainer>
 
-      <AppStack.Screen name="Detail" component={Detail} />
-    </AppStack.Navigator>
+      <AppStack.Navigator screenOptions={{ headerShown: false }}>
+        <AppStack.Screen name="Incidents" component={Incidents} />
 
-  </NavigationContainer>
+        <AppStack.Screen name="Detail" component={Detail} />
+      </AppStack.Navigator>
+
+    </NavigationContainer>
+  )
 }
