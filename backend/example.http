@@ -21,7 +21,7 @@ content-type: application/json
 
 ###
 GET http://localhost:3333/profile HTTP/1.1
-Authorization: 7a7a4faa
+Authorization: 7a7a4fa0
   
 
 ###INCIDENTS
@@ -35,8 +35,8 @@ Authorization: 7a7a4fa0
 content-type: application/json
 
 {
-    "title": "Incident Example",
-    "description": "sample description",
+    "title": "Incident Example1",
+    "description": "sample description1",
     "value": 1000
 }
 
