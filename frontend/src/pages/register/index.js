@@ -30,7 +30,6 @@ export default function Register() {
 
     api.post('ngos', data)
       .then(response => {
-        console.log(response);
         alert(response);
         history.push('/');
       })

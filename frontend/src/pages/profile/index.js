@@ -34,7 +34,6 @@ export default function Profile() {
       }
     })
       .then(response => {
-        console.log(response.data);
         setIncidents(response.data);
       })
       .catch()
