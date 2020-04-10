@@ -1,7 +1,6 @@
-const connection = require('../../database/connection');
+import connection from '../../database/connection';
 
-module.exports = {
-
+class ProfileController {
   async index(request, response) {
     const ngo_id = request.headers.authorization;
 
@@ -12,3 +11,5 @@ module.exports = {
     return response.json(incidents);
   }
 }
+
+export default new ProfileController();

@@ -1,6 +1,6 @@
-const connection = require('../../database/connection');
+import connection from '../../database/connection';
 
-module.exports = {
+class SessionController {
   async create(request, response) {
     const { id } = request.body;
 
@@ -16,3 +16,5 @@ module.exports = {
     return response.json(ngo);
   }
 }
+
+export default new SessionController();

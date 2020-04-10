@@ -1,12 +1,11 @@
-const connection = require('../../database/connection');
-const crypto = require('crypto');
+import connection from '../../database/connection';
+import crypto from 'crypto';
 
-module.exports = {
-
+class NgoController {
   async index(request, response) {
     const ngos = await connection('ngos').select();
     return response.json(ngos);
-  },
+  }
 
   async store(request, response) {
     const { name, email, whatsapp, city, uf } = request.body;
@@ -20,3 +19,4 @@ module.exports = {
   }
 }
 
+export default new NgoController();

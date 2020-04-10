@@ -1,6 +1,6 @@
-const connection = require('../../database/connection');
+import connection from '../../database/connection';
 
-module.exports = {
+class IncidenController {
   async store(request, response) {
     const { title, description, value } = request.body;
     const ngo_id = request.headers.authorization;
@@ -13,7 +13,7 @@ module.exports = {
     });
 
     return response.json({ id });
-  },
+  }
 
   async index(request, response) {
     const { pageNumber = 1, pageSize = 5 } = request.query;
@@ -36,7 +36,7 @@ module.exports = {
     response.header('X-Total-Count', count['count(*)']);
 
     return response.json(incidents);
-  },
+  }
 
   async delete(request, response) {
     const { id } = request.params;
@@ -62,3 +62,5 @@ module.exports = {
     return response.status(204).send();
   }
 }
+
+export default new IncidenController();

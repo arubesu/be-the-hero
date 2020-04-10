@@ -1,11 +1,11 @@
-const express = require('express');
-const { celebrate, Segments } = require('celebrate');
+import express from 'express';
+import { celebrate, Segments } from 'celebrate';
 
-const { ngoCreateValidator, profileIndexValidator } = require('./app/validators/validators')
-const ngoController = require('./app/controllers/ngoController');
-const incidentController = require('./app/controllers/incidentController');
-const profileController = require('./app/controllers/profileController');
-const sessionController = require('./app/controllers/sessionController');
+import { ngoCreateValidator, profileIndexValidator } from './app/validators/validators';
+import ngoController from './app/controllers/ngoController';
+import incidentController from './app/controllers/incidentController';
+import profileController from './app/controllers/profileController';
+import sessionController from './app/controllers/sessionController';
 
 const routes = express.Router();
 
@@ -55,4 +55,4 @@ routes.delete('/incidents/:id', incidentController.delete);
  */
 routes.post('/sessions', sessionController.create);
 
-module.exports = routes;
+export default routes;

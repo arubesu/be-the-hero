@@ -1,4 +1,4 @@
-const { Joi } = require('celebrate');
+import { Joi } from 'celebrate';
 
 const ngoCreateValidator = Joi.object().keys({
   name: Joi.string().required(),
@@ -12,7 +12,7 @@ const profileIndexValidator = Joi.object({
   authorization: Joi.string().required()
 }).unknown();
 
-module.exports = {
+export {
   ngoCreateValidator,
   profileIndexValidator,
 }
