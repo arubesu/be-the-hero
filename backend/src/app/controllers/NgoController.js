@@ -1,19 +1,15 @@
-import connection from '../../database/connection';
-import crypto from 'crypto';
+import Ngo from '../models/Ngo'
 
 class NgoController {
   async index(request, response) {
-    const ngos = await connection('ngos').select();
+    const ngos = await Ngo.findAll({
+      attributes: ['name', 'email', 'whatsapp', 'city', 'state']
+    });
     return response.json(ngos);
   }
 
   async store(request, response) {
-    const { name, email, whatsapp, city, uf } = request.body;
-    const id = crypto.randomBytes(4).toString('HEX');
-
-    await connection('ngos').insert({
-      name, email, whatsapp, city, uf, id
-    });
+    const { id } = await Ngo.create(request.body);
 
     return response.json({ id });
   }
