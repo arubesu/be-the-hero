@@ -1,6 +1,23 @@
-const knex = require('knex');
-const configuration = require('../../knexfile');
+import Sequelize from 'sequelize';
 
-const connection = knex(configuration.development);
+import Incident from '../app/models/Incident'
+import Ngo from '../app/models/Ngo'
 
-module.exports = connection;
+import databaseConfig from '../config/database';
+
+const models = [Incident, Ngo];
+
+class Database {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.connection = new Sequelize(databaseConfig);
+
+    models.map(model => model.init(this.connection));
+  }
+
+}
+
+export default new Database();
