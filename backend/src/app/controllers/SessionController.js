@@ -1,19 +1,35 @@
-import connection from '../../database/connection';
+import jwt from 'jsonwebtoken';
+import Ngo from '../models/Ngo';
+
+import authConfig from '../../config/auth';
 
 class SessionController {
   async create(request, response) {
-    const { id } = request.body;
+    const { email, password } = request.body;
 
-    const ngo = await connection('ngos')
-      .where('id', id)
-      .select('name')
-      .first();
+    const ngo = await Ngo.findOne({ where: { email } });
 
     if (!ngo) {
-      return response.status(400).json({ error: 'No NGO found with this ID' });
+      return response.status(400).json({ error: 'Email does not exist' })
     }
 
-    return response.json(ngo);
+    if (!(await ngo.checkPassword(password))) {
+      return response.status(401).json({ error: 'Password Invalid' });
+    }
+
+    const { id, name } = ngo;
+
+    return response.json({
+      user: {
+        id,
+        name,
+        email
+      },
+      token: jwt.sign({ id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn
+      })
+    });
+
   }
 }
 
