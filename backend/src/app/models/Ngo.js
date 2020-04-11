@@ -15,7 +15,6 @@ class Ngo extends Model {
 
     this.addHook('beforeSave', async (ngo) => {
       if (ngo.password) {
-        console.log(ngo.password);
         ngo.password_hash = await bcrypt.hash(ngo.password, 10)
       }
     });
