@@ -5,12 +5,24 @@ import routes from './routes';
 import cors from 'cors';
 import { errors } from 'celebrate';
 
+import './database/connection'
 
-const app = express();
+class App {
+  constructor() {
+    this.server = express();
+    this.middlewares();
+    this.routes();
+  }
 
-app.use(cors());
-app.use(express.json());
-app.use(routes);
-app.use(errors());
+  middlewares() {
+    this.server.use(cors());
+    this.server.use(express.json());
+    this.server.use(errors());
+  }
 
-export default app;
+  routes() {
+    this.server.use(routes);
+  }
+}
+
+export default new App().server;
