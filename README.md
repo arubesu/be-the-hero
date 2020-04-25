@@ -21,7 +21,7 @@ Be the hero is an app that allow heroes to help who needs help!
 ### Back-End
     Node.js - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
     Express.js - The Web framework
-    Knex.js - SQL query builder
+    Sequelize -  Node.js ORM
     Celebrate - A joi validation middleware for Express
     
 ### Front-End
