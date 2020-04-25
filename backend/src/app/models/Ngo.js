@@ -1,5 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
+import Incidents from './Incident'
 
 class Ngo extends Model {
   static init(sequelize) {
@@ -18,6 +19,9 @@ class Ngo extends Model {
         ngo.password_hash = await bcrypt.hash(ngo.password, 10)
       }
     });
+
+    this.hasMany(Incidents, { foreignKey: 'ngo_id', sourceKey: 'id' })
+    Incidents.belongsTo(Ngo), { foreignKey: 'id' };
 
     return this;
   }
