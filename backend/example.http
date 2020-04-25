@@ -14,36 +14,39 @@ content-type: application/json
     "email": "sample@email.com",
     "whatsapp": "9999999999",
     "city": "São Paulo",
-    "uf": "SP"
+    "state": "SP",
+    "password": "1234546"
 }
 
 ### PROFILE
 
 ###
 GET http://localhost:3333/profile HTTP/1.1
-Authorization: 7a7a4fa0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTg3ODQ5MDM1LCJleHAiOjE1ODc4NTYyMzV9.72SZyQoKOwD_RucwJ5_CVFw-8Bg8pn35kzb8uX2tHfk
   
 
 ###INCIDENTS
 
 ###
 GET http://localhost:3333/incidents?pageNumber=1&pageSize=100 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTg3ODQ5MDM1LCJleHAiOjE1ODc4NTYyMzV9.72SZyQoKOwD_RucwJ5_CVFw-8Bg8pn35kzb8uX2tHfk
+
   
 ###
 POST http://localhost:3333/incidents HTTP/1.1
-Authorization: 7a7a4fa0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTg3ODQ5MDM1LCJleHAiOjE1ODc4NTYyMzV9.72SZyQoKOwD_RucwJ5_CVFw-8Bg8pn35kzb8uX2tHfk
 content-type: application/json
 
 {
-    "title": "Incident Example1",
-    "description": "sample description1",
+    "title": "Incident Example2",
+    "description": "sample description2",
     "value": 1000
 }
 
 
 ###
-DELETE http://localhost:3333/incidents/2 HTTP/1.1
-Authorization: 7a7a4fa5
+DELETE http://localhost:3333/incidents/8 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNTg3ODQ5MDM1LCJleHAiOjE1ODc4NTYyMzV9.72SZyQoKOwD_RucwJ5_CVFw-8Bg8pn35kzb8uX2tHfk
 
 ##Session
 
@@ -52,7 +55,6 @@ POST http://localhost:3333/sessions HTTP/1.1
 content-type: application/json
 
 {
-    "id":"8487cce1"
+    "email":"sample1@email.com",
+    "password": "1234546"
 }
-
-
