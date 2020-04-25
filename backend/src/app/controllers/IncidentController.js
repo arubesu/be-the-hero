@@ -1,66 +1,78 @@
-import connection from '../../database/connection';
+import Incidents from '../models/Incident'
+import Ngos from '../models/Ngo'
 
-class IncidenController {
+class IncidentController {
   async store(request, response) {
     const { title, description, value } = request.body;
-    const ngo_id = request.headers.authorization;
 
-    const [id] = await connection('incidents').insert({
-      ngo_id,
+    const ngoId = request.userId;
+
+    const incidents = await Incidents.create({
+      ngo_id: ngoId,
       title,
       description,
-      value
+      value,
     });
 
-    return response.json({ id });
+    return response.json({ createdId: incidents.id });
   }
 
   async index(request, response) {
     const { pageNumber = 1, pageSize = 5 } = request.query;
 
-    const [count] = await connection('incidents').count();
+    const count = await Incidents.count();
 
-    const incidents = await connection('incidents')
-      .join('ngos', 'ngos.id', '=', 'incidents.ngo_id')
-      .limit(pageSize)
-      .offset((pageNumber - 1) * pageSize)
-      .select(
-        'incidents.*',
-        'ngos.name',
-        'ngos.email',
-        'ngos.whatsapp',
-        'ngos.city',
-        'ngos.uf'
-      );
+    const incidents = await Incidents.findAll({
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'value',
+      ],
+      include: [{
+        model: Ngos,
+        attributes: [
+          'name',
+          'email',
+          'whatsapp',
+          'city',
+          'state',
+        ],
+      }],
+      offset: (pageNumber - 1) * pageSize, limit: pageSize
+    })
 
-    response.header('X-Total-Count', count['count(*)']);
+    response.header('X-Total-Count', count);
 
     return response.json(incidents);
   }
 
   async delete(request, response) {
     const { id } = request.params;
-    const ngo_id = request.headers.authorization;
+    const ngoId = request.userId;
 
-    const incident = await connection('incidents')
-      .where('id', id)
-      .select('ngo_id')
-      .first();
+    const incident = await Incidents.findOne({
+      where: {
+        id,
+      },
+    });
 
     if (!incident) {
       return response.status(400).json({ error: 'Invalid ID' });
     }
 
-    if (incident.ngo_id !== ngo_id) {
+    if (incident.ngo_id !== ngoId) {
       return response.status(401).json({ error: 'Operation Unauthorized' });
     }
 
-    await connection('incidents')
-      .where('id', id)
-      .del();
+    await Incidents.destroy({
+      where: {
+        id,
+      },
+    })
 
     return response.status(204).send();
   }
 }
 
-export default new IncidenController();
+export default new IncidentController();

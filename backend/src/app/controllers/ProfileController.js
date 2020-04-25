@@ -1,14 +1,14 @@
-import connection from '../../database/connection';
+import Incident from '../models/Incident';
 
 class ProfileController {
   async index(request, response) {
-    const ngo_id = request.headers.authorization;
+    const { userId } = request;
 
-    const incidents = await connection('incidents')
-      .where('ngo_id', ngo_id)
-      .select();
+    const incidents = await Incident.findAll({
+      where: { ngo_id: userId }
+    });
 
-    return response.json(incidents);
+    return response.json({ incidents });
   }
 }
 
