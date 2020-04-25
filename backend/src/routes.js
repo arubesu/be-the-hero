@@ -6,9 +6,19 @@ import NgoController from './app/controllers/NgoController';
 import IncidentController from './app/controllers/IncidentController';
 import ProfileController from './app/controllers/ProfileController';
 import SessionController from './app/controllers/SessionController';
-import Ngo from './app/models/Ngo';
+import authMiddleware from './app/middlewares/auth';
 
 const routes = express.Router();
+
+/**
+ * SESSION
+ */
+
+
+/**
+ * CREATE SESSION
+ */
+routes.post('/sessions', celebrate({ [Segments.BODY]: sessionValidator }), SessionController.create);
 
 /**
  * List All NGOs
@@ -18,9 +28,9 @@ routes.get('/ngos', NgoController.index);
 /**
  * create NGO
  */
-routes.post('/ngos',
-  celebrate({ [Segments.BODY]: ngoCreateValidator }), NgoController.store);
+routes.post('/ngos', celebrate({ [Segments.BODY]: ngoCreateValidator }), NgoController.store);
 
+routes.use(authMiddleware);
 
 /**
  * PROFILE ROUTES
@@ -46,16 +56,5 @@ routes.post('/incidents', IncidentController.store);
  * DELETE Incident
  */
 routes.delete('/incidents/:id', IncidentController.delete);
-
-
-/**
- * SESSION
- */
-
-
-/**
- * CREATE SESSION
- */
-routes.post('/sessions', celebrate({ [Segments.BODY]: sessionValidator }), SessionController.create);
 
 export default routes;
