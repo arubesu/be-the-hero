@@ -42,7 +42,7 @@ export default function Register() {
       <div className="content">
         <section>
           <img src={logoImg} alt="Be The Hero" />
-          <h1>Cadastro</h1>
+          <h1>Register</h1>
           <p>Register your NGO, enter the platform and help people find
           Cases of your NGO.
           </p>
@@ -88,8 +88,10 @@ export default function Register() {
             />
 
             <input
-              placeholder="State"
+              placeholder="ST"
               style={{ width: 80 }}
+              maxLength={2}
+              minLength={2}
               value={uf}
               onChange={e => setUF(e.target.value)}
             />
