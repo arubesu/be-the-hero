@@ -10,16 +10,20 @@ import api from '../../services/api';
 
 export default function Login() {
 
-  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const history = useHistory();
 
   async function handleLogin(e) {
     e.preventDefault();
 
-    api.post('sessions', { id })
+    api.post('sessions', { email, password })
       .then(response => {
-        localStorage.setItem('ngoId', id);
-        localStorage.setItem('ngoName', response.data.name);
+        const { user, token } = response.data;
+        localStorage.setItem('ngoId', user.id);
+        localStorage.setItem('ngoemail', user.email);
+        localStorage.setItem('ngoName', user.name);
+        localStorage.setItem('be-the-hero:token', token);
         history.push('/profile');
       })
       .catch(err => alert(err));
@@ -30,17 +34,19 @@ export default function Login() {
       <section className="form">
         <img src={logoImg} alt="Be The Hero" />
         <form onSubmit={handleLogin} >
-          <h1>Faça seu logon</h1>
-
           <input
-            placeholder="Sua ID "
-            onChange={e => setId(e.target.value)}
+            placeholder="E-mail"
+            onChange={e => setEmail(e.target.value)}
           />
-          <button className="button" type="submit">Entrar</button>
+          <input
+            placeholder="Password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <button className="button" type="submit">Log In</button>
 
           <Link className="back-link" to="/register">
             <FiLogIn size={16} color="#e02041" />
-            Não tenho cadastro
+            Create new account
           </Link>
         </form>
       </section>

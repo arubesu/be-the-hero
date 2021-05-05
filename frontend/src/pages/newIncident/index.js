@@ -9,10 +9,11 @@ import api from '../../services/api';
 
 export default function NewIncident() {
   const history = useHistory();
-  const ngoId = localStorage.getItem('ngoId');
+  const token = localStorage.getItem('be-the-hero:token');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
+  const authorization = `Bearer ${token}`;
 
   async function handleCreateNewIncident(e) {
     e.preventDefault();
@@ -27,7 +28,7 @@ export default function NewIncident() {
       data,
       {
         headers: {
-          Authorization: ngoId
+          Authorization: authorization
         }
       }).then(response => {
         alert('Incident Created')
@@ -41,32 +42,32 @@ export default function NewIncident() {
       <div className="content">
         <section>
           <img src={logoImg} alt="Be The Hero" />
-          <h1>Cadastrar novo caso</h1>
-          <p>Descreva o caso detalhadamente para encontrar um herói para resolver isso.</p>
+          <h1>Register new cause</h1>
+          <p>Describe the cause in detail to find a hero to help</p>
 
           <Link className="back-link" to="/profile">
             <FiArrowLeft size={16} color="#e02041" />
-            Voltar para Home
+            Back
           </Link>
         </section>
         <form onSubmit={handleCreateNewIncident}>
           <input
-            placeholder="Titulo do caso"
+            placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <textarea
-            placeholder="Descrição"
+            placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
           <input
-            placeholder="Valor em reais"
+            placeholder="Value"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
 
-          <button className="button" type="submit">Cadastrar</button>
+          <button className="button" type="submit">Register</button>
         </form>
       </div>
     </div>

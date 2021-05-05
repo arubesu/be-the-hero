@@ -11,6 +11,7 @@ export default function Register() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [whatsapp, setWhatsApp] = useState('');
   const [city, setCity] = useState('');
   const [uf, setUF] = useState('');
@@ -23,14 +24,14 @@ export default function Register() {
     const data = {
       name,
       email,
+      password,
       whatsapp,
       city,
-      uf
+      state: uf
     };
 
     api.post('ngos', data)
       .then(response => {
-        alert(response);
         history.push('/');
       })
       .catch(err => alert(err));
@@ -42,19 +43,19 @@ export default function Register() {
         <section>
           <img src={logoImg} alt="Be The Hero" />
           <h1>Cadastro</h1>
-          <p>Faça seu cadastro, entre na plataforma e ajude pessoas a encontrarem
-          os casos da sua ONG.
+          <p>Register your NGO, enter the platform and help people find
+          Cases of your NGO.
           </p>
 
           <Link className="back-link" to="/">
             <FiArrowLeft size={16} color="#e02041" />
-            Já tenho cadastro
+            I'm already registered
           </Link>
 
         </section>
         <form onSubmit={handleRegister}>
           <input
-            placeholder="Nome da ONG"
+            placeholder="NGO Name"
             value={name}
             onChange={e => setName(e.target.value)}
           />
@@ -67,6 +68,13 @@ export default function Register() {
           />
 
           <input
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+
+          <input
             placeholder="WhatsApp"
             value={whatsapp}
             onChange={e => setWhatsApp(e.target.value)}
@@ -74,20 +82,20 @@ export default function Register() {
 
           <div className="input-group">
             <input
-              placeholder="Cidade"
+              placeholder="City"
               value={city}
               onChange={e => setCity(e.target.value)}
             />
 
             <input
-              placeholder="UF"
+              placeholder="State"
               style={{ width: 80 }}
               value={uf}
               onChange={e => setUF(e.target.value)}
             />
           </div>
 
-          <button className="button" type="submit">Cadastrar</button>
+          <button className="button" type="submit">Register</button>
         </form>
       </div>
     </div>

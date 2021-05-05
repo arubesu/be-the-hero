@@ -12,6 +12,8 @@ export default function Profile() {
   const [incidents, setIncidents] = useState([]);
   const ngoName = localStorage.getItem('ngoName');
   const ngoId = localStorage.getItem('ngoId');
+  const token = localStorage.getItem('be-the-hero:token');
+  const authorization = `Bearer ${token}`;
 
   function handleLogout() {
     localStorage.clear();
@@ -21,7 +23,7 @@ export default function Profile() {
   async function handleDeleteIncident(id) {
     api.delete(`incidents/${id}`, {
       headers: {
-        Authorization: ngoId
+        Authorization: authorization
       }
     }).then(response => setIncidents(incidents.filter(incident => incident.id !== id))
     ).catch(err => alert(err));
@@ -30,11 +32,11 @@ export default function Profile() {
   useEffect(() => {
     api.get('profile', {
       headers: {
-        Authorization: ngoId
+        Authorization: authorization
       }
     })
       .then(response => {
-        setIncidents(response.data);
+        setIncidents(response.data.incidents);
       })
       .catch()
   }, [ngoId]);
@@ -44,34 +46,34 @@ export default function Profile() {
     <div className="profile-container">
       <header>
         <img src={logoImg} alt="Be The Hero" />
-        <span>Bem vinda, {ngoName}</span>
+        <span>Welcome, {ngoName}</span>
 
-        <Link className="button" to="/incidents/new">Cadastrar novo caso</Link>
+        <Link className="button" to="/incidents/new">Register new cause</Link>
         <button type="button" onClick={handleLogout}>
           <FiPower size={18} color="#e02041" />
         </button>
       </header>
 
-      <h1>Casos Cadastrados</h1>
+      <h1>Registered Causes</h1>
 
       <ul>
         {incidents.map(incident =>
-          (
-            <li key={incident.id} >
-              <strong>CASO:</strong>
-              <p>{incident.title}</p>
+        (
+          <li key={incident.id} >
+            <strong>CAUSE:</strong>
+            <p>{incident.title}</p>
 
-              <strong>DESCRIÇÃO:</strong>
-              <p>{incident.description}</p>
+            <strong>DESCRIPTION:</strong>
+            <p>{incident.description}</p>
 
-              <strong>VALOR:</strong>
-              <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}</p>
+            <strong>VALUE:</strong>
+            <p>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(incident.value)}</p>
 
-              <button onClick={() => handleDeleteIncident(incident.id)} type="button">
-                <FiTrash2 size={20} color="#a8a8b3" />
-              </button>
-            </li>
-          )
+            <button onClick={() => handleDeleteIncident(incident.id)} type="button">
+              <FiTrash2 size={20} color="#a8a8b3" />
+            </button>
+          </li>
+        )
         )}
       </ul>
     </div>
