@@ -238,7 +238,7 @@ The following tools were used in the construction of the project:
 
 > See the file  [package.json](https://github.com/arubesu/be-the-hero/blob/master/mobile/package.json)
 
-#### **Utilitários**
+#### **Tools**
 
 -   Prototype:  **[Figma](https://www.figma.com/)**  →  **[Layout (Be the Hero)](https://www.figma.com/file/2C2yvw7jsCOGmaNUDftX9n/Be-The-Hero---OmniStack-11?node-id=0:1)**
 -   API Test:  **[Insomnia](https://insomnia.rest/)**
@@ -265,4 +265,4 @@ The following tools were used in the construction of the project:
 
 This project is under the license [MIT](./LICENSE).
 
-Made with <3  by Bruno Souza 👋🏽 [Get in Touch!](https://www.linkedin.com/in/bruno-a-souza/)
+Made with ❤️  by Bruno Souza 👋🏽 [Get in Touch!](https://www.linkedin.com/in/bruno-a-souza/)
