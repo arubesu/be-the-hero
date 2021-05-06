@@ -30,6 +30,11 @@ routes.get('/ngos', NgoController.index);
  */
 routes.post('/ngos', celebrate({ [Segments.BODY]: ngoCreateValidator }), NgoController.store);
 
+/**
+ * LIST ALL incidents from NGO
+ */
+routes.get('/incidents', IncidentController.index);
+
 routes.use(authMiddleware);
 
 /**
@@ -41,11 +46,6 @@ routes.get('/profile', celebrate({ [Segments.HEADERS]: profileIndexValidator }),
 /**
  * INCIDENTS ROUTES
  */
-
-/**
- * LIST ALL incidents from NGO
- */
-routes.get('/incidents', IncidentController.index);
 
 /**
  * CREATE Incident
