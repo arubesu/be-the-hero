@@ -144,8 +144,7 @@ $ npm run dev
 # The server will start at port: 3333 - go to http://localhost:3333
 
 ```
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Be%20the%20Hero&uri=https%3A%2F%2Fgithub.com%2Farubesu%2Fbe-the-hero%2Fblob%2Fmain%2Fbackend%2FInsomnia.json)
-
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Be%20the%20Hero&uri=https%3A%2F%2Fraw.githubusercontent.com%2Farubesu%2Fbe-the-hero%2Fmain%2Fbackend%2FInsomnia.json)
 
 #### Running the web application (Frontend)
 
