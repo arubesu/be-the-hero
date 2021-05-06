@@ -72,9 +72,15 @@ The application layout is available on Figma:
 ### Mobile
 
 <p align="center">
-  <img alt="Ecoleta" title="#Ecoleta" src="./assets/home-mobile.png" width="200px">
+  <img alt="Home" title="#Home" src="https://raw.githubusercontent.com/arubesu/be-the-hero/main/screenshots/mobile-home.jpeg" width="200px">
 
-  <img alt="Ecoleta" title="#Ecoleta" src="./assets/detalhes-mobile.svg" width="200px">
+  <img alt="Details" title="#Details" src="https://raw.githubusercontent.com/arubesu/be-the-hero/main/screenshots/mobile-details.jpeg" width="200px">
+</p>
+
+<p align="center">
+  <img alt="Home" title="#Home" src="https://raw.githubusercontent.com/arubesu/be-the-hero/main/screenshots/mobile-home.gif" width="200px">
+
+  <img alt="Details" title="#Details" src="https://raw.githubusercontent.com/arubesu/be-the-hero/main/screenshots/mobile-details.gif" width="200px">
 </p>
 
 ### Web
@@ -192,6 +198,10 @@ $ npm start
 # The application will open on the port: 19002 - go to http://localhost:19002/
 
 ```
+access the path src/services/api.js and change
+baseURL to ip you get from expo:server-port
+example: 'http://your_ip:3333' (node server default port)
+
 Scan the QR code and the application will start 
 
 ---
